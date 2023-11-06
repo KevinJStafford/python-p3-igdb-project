@@ -25,14 +25,14 @@ class Game:
     # Delete game from games by game_id
     def delete_by_id(self, game_id):
         CURSOR.execute("SELECT name FROM games WHERE id = ?", (game_id))
-        existing_name = CURSOR.fetchone()
+        existing_game = CURSOR.fetchone()
 
-        if existing_name:
-            print(f"Deleting {existing_name} (id: {genre_id})...")
-            CURSOR.execute("DELETE FROM games WHERE id = ?", (genre_id)) 
+        if existing_game:
+            print(f"Deleting {existing_game} (id: {game_id})...")
+            CURSOR.execute("DELETE FROM games WHERE id = ?", (game_id)) 
             CONN.commit()
         else:
-            print(f'A game with the name "{existing_name}" does not exist.')
+            print(f'A game with the name "{existing_game}" does not exist.')
     
     # delete game from games by name
     def delete_by_name(self, name):

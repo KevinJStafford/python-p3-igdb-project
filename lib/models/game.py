@@ -2,13 +2,28 @@ from models.__init__ import CURSOR, CONN
 
 class Game:
 
-    def __init__(self, name, game_id=None):
+    def __init__(self, name, genre_id, console_id, game_id=None):
         self.name = name
+        self.genre_id = genre_id
+        self.console_id = console_id
         self.game_id = game_id
         
 
     def __repr__(self):
         return f"{self.name}"
+    
+    # create games table
+    def create_table(self):
+        CURSOR.execute('''
+            CREATE TABLE IF NOT EXISTS genres (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                description TEXT,
+                genre_id INT,
+                console_id INT
+            )
+        ''')
+        CONN.commit()
     
     # Adds a game to games table
     def add_genre(self, name, description):
@@ -25,14 +40,14 @@ class Game:
     # Delete game from games by game_id
     def delete_by_id(self, game_id):
         CURSOR.execute("SELECT name FROM games WHERE id = ?", (game_id))
-        existing_name = CURSOR.fetchone()
+        existing_game = CURSOR.fetchone()
 
-        if existing_name:
-            print(f"Deleting {existing_name} (id: {genre_id})...")
-            CURSOR.execute("DELETE FROM games WHERE id = ?", (genre_id)) 
+        if existing_game:
+            print(f"Deleting {existing_game} (id: {game_id})...")
+            CURSOR.execute("DELETE FROM games WHERE id = ?", (game_id)) 
             CONN.commit()
         else:
-            print(f'A game with the name "{existing_name}" does not exist.')
+            print(f'A game with the name "{existing_game}" does not exist.')
     
     # delete game from games by name
     def delete_by_name(self, name):

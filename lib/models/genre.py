@@ -18,6 +18,10 @@ class Genre:
             )
         ''')
         CONN.commit()
+
+    @classmethod
+    def from_db(cls, row):
+        return cls(id=row[0], name=row[1], description=row[2])
     
     # add genre
     def add_genre(self, name, description):
@@ -98,4 +102,22 @@ class Genre:
         else: 
             print(f"{Fore.GREEN}There are no genres currently. Use the menu to add a genre.{Style.RESET_ALL}")
     
+    # get all consoles
+    @classmethod
+    def consoles(cls, id):
+        sql = '''SELECT console.* FROM console
+              JOIN games ON games.console_id = console.id
+              WHERE games.genre_id = ?'''
+        params = (id, )
+        consoles_list = CURSOR.execute(sql, params).fetchall()
+
+        if consoles_list:
+            print(f"{Fore.GREEN}Retrieving all platforms for the selected genre.{Style.RESET_ALL}")
+            for console in consoles_list: 
+                print(f"{Fore.GREEN}{console[1]}{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.GREEN}There are no platforms for the selected genre.{Style.RESET_ALL}")
     
+    @classmethod
+    def drop_table(cls):
+        CURSOR.execute('DROP TABLE genres')

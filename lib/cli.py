@@ -11,15 +11,15 @@ from helper_functions.figure import show_image
 def main():
     show_image()
     while True:
-        print("Welcome blurb")
-        print("1. An option")
+        print("Welcome to the iGdb")
+        print("1. Platform")
         print("2. Genre")
         print("3. Game")
-        print("------------------------------------------------")
+        print("---------------------")
 
         choice = input("Please select an option: ")
         if choice == "1":
-            pass
+            console_menu()
         elif choice == "2":
             genre_menu()
         elif choice == "3":
@@ -36,9 +36,10 @@ def genre_menu():
         print('''
                       Genre Menu
               
-        1. Add a genre          4. Find by id
-        2. Delete by id         5. Find by name
-        3. Delete by name       6. Get all genres
+        1. Add a genre          5. Find by name
+        2. Delete by id         6. Get all genres
+        3. Delete by name       7. Get all platforms
+        4. Find by id
         
         Enter 0 to return to the previous menu.
         ------------------------------------------
@@ -65,7 +66,7 @@ def genre_menu():
         elif choice == "4":
             print('You have selected "Find by id".')
             param = input("Genre ID: ")
-            user_genre.find_by_id(param)
+            user_genre.find_by_id(param)################################################
 
         elif choice == "5":
             print('You have selected "Find by name".')
@@ -75,6 +76,10 @@ def genre_menu():
         elif choice == "6":
             print('You have selected "Get all genres".')
             user_genre.get_all_genres()
+
+        elif choice == "7":
+            param1 = input("Genre ID: ")
+            user_genre.consoles(param1)
 
         elif choice == "0": 
             return
@@ -94,9 +99,10 @@ def game_menu():
         print('''
                       Games Menu
               
-        1. Add a game                    2. See all games
-        3. Delete a game                 4. Find game genres by consoles
-        5. Find consoles by game genre
+        1. Add a game                    
+        2. Delete a game                 
+        3. See all games
+        
         
         Enter 0 to return to the previous menu.
         ------------------------------------------
@@ -107,44 +113,26 @@ def game_menu():
         if choice == "1":
             print('''You've chosen to add a game to the database.
                    
-                 Please be sure to add a console type and genre type:
+                 Please be sure to add a platform type and genre type:
                   
-                     CONSOLES                               GENRES
+                        PLATFORMS                       GENRES
                      PlayStation = 1       Action-adventure = 1   Strategy = 4
                      Xbox = 2              RPG = 2                Turn-based RPG = 5
                      PC = 3                Horror/Survival = 3    Puzzle = 6
                   ''' )
             param1 = input("Game Name: ")
-            param2 = input("Console: ")
+            param2 = input("Platform: ")
             param3 = input("Genre: ")
             user_game.add_game(param1, param2, param3)
 
         elif choice == "2":
-            print("All the Games!")
-            user_game.get_all_games()
+            print("You have chosen to delete a game")
+            param = input("Game ID: ")
+            user_game.delete_by_id(param)
 
         elif choice == "3":
-            print("You have chosen to delete a game, please enter the Game's ID: ")
-            user_game.delete_by_id()
-
-        elif choice == "4":
-            print('''Please select a console:
-                   CONSOLES
-                PlayStation
-                Xbox
-                PC
-                  ''')
-            param1 = input("Console: ")
-            user_game.consoles(param1)
-
-        elif choice == "5":
-            print('''Please select a genre:
-                             GENRES
-                    Action-adventure   Strategy
-                    RPG                Turn-based RPG
-                    Horror/Survival    Puzzle''')
-            param1 = input("Genre: ")
-            user_game.genres(param1)
+            print("All the Games!")
+            user_game.get_all_games()
 
         elif choice == "0":
             return
@@ -156,16 +144,17 @@ def game_menu():
             print("Not a valid option. Please follow the menu options.")
 
 
-# console menu
+# platform menu
 def console_menu():
     user_console = Console()
     while True:
         print('''
-                      Console Menu
+                      Platform Menu
               
-        1. Add a console          4. Find by id
-        2. Delete by id         5. Find by name
-        3. Delete by name       6. Get all consoles
+        1. Add a platform        5. Find by name
+        2. Delete by id         6. Get all platform
+        3. Delete by name       7. Get all genres
+        4. Find by id
         
         Enter 0 to return to the previous menu.
         ------------------------------------------
@@ -173,34 +162,38 @@ def console_menu():
 
         choice = input("Please select an option:")
         if choice == "1":
-            print('You have selected "Add a console".')
-            param1 = input("Console Name: ")
-            param2 = input("Console Description: ")
-            user_console.add_genre(param1, param2)
+            print('You have selected "Add a platform".')
+            param1 = input("Platform Name: ")
+            param2 = input("Platform Year Invented: ")
+            user_console.add_console(param1, param2)
 
         elif choice == "2":
             print('You have selected "Delete by id".')
-            param = input("Console ID: ")
+            param = input("Platform ID: ")
             user_console.delete_by_id(param)
 
         elif choice == "3":
             print('You have selected "Delete by name".')
-            param = input("Console Name: ")
+            param = input("Platform Name: ")
             user_console.delete_by_name(param)
 
         elif choice == "4":
             print('You have selected "Find by id".')
-            param = input("Console ID: ")
+            param = input("Platform ID: ")
             user_console.find_by_id(param)
 
         elif choice == "5":
             print('You have selected "Find by name".')
-            param = input("Console Name: ")
+            param = input("Platform Name: ")
             user_console.find_by_name(param)
 
         elif choice == "6":
-            print('You have selected "Get all consoles".')
-            user_console.get_all_genres()
+            print('You have selected "Get all platforms".')
+            user_console.get_all_consoles()
+
+        elif choice == "7":
+            param1 = input("Platform ID: ")
+            user_console.genres(param1)
 
         elif choice == "0": 
             return

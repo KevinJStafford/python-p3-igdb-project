@@ -18,6 +18,10 @@ class Game:
         ''')
         CONN.commit()
 
+    @classmethod
+    def from_db(cls, row):
+        return cls(id=row[0], name=row[1], console_id=row[2], genre_id=row[3])
+
     # Adds a game to games table
     @classmethod
     def add_game(self, name, console_id, genre_id):
@@ -95,37 +99,6 @@ class Game:
         else: 
             print(f"{Fore.GREEN}There are no genres currently. Use the menu to add a genre.{Style.RESET_ALL}")
     
-    # get consoles (many to many)
-    def consoles(self, console_id):
-        CURSOR.execute('''
-                       SELECT genres.* FROM CONSOLES
-                       JOIN games ON games.consoles.id = console.id
-                       WHERE games.genre_id = ?''', (console_id,))
-        genre_consoles = CURSOR.fetchall()
-
-        if genre_consoles:
-            id, name, console_id, genre_id = genre_consoles
-            for console in genre_consoles:
-                id = console_id
-                print(f" ID: {id} \nName: {name}")
-        else:
-            print("There are no games on that console for this genre. Use the menu to add a new game.")
-    
-    # get consoles (many to many)
-    def genres(self):
-        CURSOR.execute('''
-                       SELECT consoles.* FROM GENRES
-                       JOIN games ON games.genres.id = genre.id
-                       WHERE games.console_id = ? 
-                       ''')
-        consoles_genres = CURSOR.fetchall()
-
-        if consoles_genres:
-            for genre in consoles_genres:
-                id = genre_id
-                print(f" ID: {id} \nName: {name}")
-        else:
-            print("There are no games with that genre for this console. Use the menu to add a new game.")
 
     def __repr__(self):
         return f"{self.name}"

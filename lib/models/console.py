@@ -5,10 +5,10 @@ from models.__init__ import CONN, CURSOR
 class Console:
 
     def __init__ (self):
-        self.create_table(self)
+        self.create_table()
 
     def create_table(self):
-        CURSOR.excute('''
+        CURSOR.execute('''
             CREATE TABLE IF NOT EXISTS console (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
@@ -17,6 +17,9 @@ class Console:
         ''')
         CONN.commit()
 
+    @classmethod
+    def from_db(cls, row):
+        return cls(id=row[0], name=row[1], year=row[2])
 
     # add console
     def add_console(self, name, year):
@@ -98,3 +101,22 @@ class Console:
         else:
             print(f"{Fore.GREEN}There are no consoles currently. Use the menu to add a console.{Style.RESET_ALL}")
     
+    # get all genres
+    @classmethod
+    def genres(cls, id):
+        sql = '''SELECT genres.* FROM genres
+              JOIN games ON games.genre_id = genres.id
+              WHERE games.console_id = ?'''
+        params = (id, )
+        genres_list = CURSOR.execute(sql, params).fetchall()
+        
+        if genres_list:
+            print(f"{Fore.GREEN}Retrieving all genres for the selected platform.{Style.RESET_ALL}")
+            for genre in genres_list: 
+                print(f"{Fore.GREEN}{genre[1]}{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.GREEN}There are no genres for the selected platform.{Style.RESET_ALL}")
+    
+    @classmethod
+    def drop_table(cls):
+        CURSOR.execute('DROP TABLE consoles')

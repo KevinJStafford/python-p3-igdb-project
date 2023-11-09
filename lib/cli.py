@@ -6,6 +6,7 @@ from models.genre import Genre
 from models.game import Game
 from models.console import Console
 from helper_functions.figure import show_image
+from colorama import Fore, Style 
 
 # main menu
 def main():
@@ -24,10 +25,10 @@ def main():
             genre_menu()
         elif choice == "3":
             game_menu()
-        elif choice == "quit" or "help" or "im lost":
+        elif choice == "quit" or choice == "help" or choice == "im lost":
             exit_program()
         else:
-            print("That is invalid. Please select one of the menu options.")
+            print(f"{Fore.RED}That is invalid. Please select one of the menu options.{Style.RESET_ALL}")
 
 # genre menu
 def genre_menu():

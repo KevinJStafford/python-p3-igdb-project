@@ -1,4 +1,5 @@
 # pip install colorama
+# pipenv install colorama
 
 from colorama import Fore, Style
 from models.__init__ import CONN, CURSOR

@@ -98,22 +98,3 @@ class Console:
         else:
             print(f"{Fore.GREEN}There are no consoles currently. Use the menu to add a console.{Style.RESET_ALL}")
     
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ipdb.set_trace()

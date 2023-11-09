@@ -1,5 +1,5 @@
+from colorama import Fore, Style
 from models.__init__ import CURSOR, CONN
-
 
 class Game:
 
@@ -34,12 +34,12 @@ class Game:
     # Delete game from games by game_id
     @classmethod
     def delete_by_id(self, game_id):
-        CURSOR.execute("SELECT name FROM games WHERE id = ?", (game_id))
+        CURSOR.execute("SELECT name FROM games WHERE id = ?", (game_id,))
         existing_game = CURSOR.fetchone()
 
         if existing_game:
             print(f"Deleting {existing_game} (id: {game_id})...")
-            CURSOR.execute("DELETE FROM games WHERE id = ?", (game_id)) 
+            CURSOR.execute("DELETE FROM games WHERE id = ?", (game_id,)) 
             CONN.commit()
         else:
             print(f'A game with the name "{existing_game}" does not exist.')
@@ -64,9 +64,10 @@ class Game:
         existing_game = CURSOR.fetchone()
 
         if existing_game:
-            return CURSOR.fetchone()
+            name = existing_game[1]
+            print(f"{Fore.GREEN}Name: {name}{Style.RESET_ALL}")
         else: 
-            print(f'A game with the id "{game_id}" does not exist.')
+            print(f'{Fore.RED}A game with the id "{game_id}" does not exist.{Style.RESET_ALL}')
 
     # find games by name
     @classmethod
@@ -76,7 +77,8 @@ class Game:
         existing_game = CURSOR.fetchone()
 
         if existing_game:
-            return CURSOR.fetchone()
+            name = existing_game[1]
+            print(f"{Fore.GREEN}Name: {name}{Style.RESET_ALL}")
         else: 
             print(f'A game with the name "{name}" does not exist.')
 
@@ -84,18 +86,25 @@ class Game:
     @classmethod
     def get_all_games(self):
         CURSOR.execute("SELECT * FROM games")
-        return CURSOR.fetchall()
+        all_games = CURSOR.fetchall()
+
+        if all_games:
+            for games in all_games:
+                id, name, console_id, genre_id = games
+                print(f"{Fore.GREEN}ID: {id} \nName: {name}\n{Style.RESET_ALL}")
+        else: 
+            print(f"{Fore.GREEN}There are no genres currently. Use the menu to add a genre.{Style.RESET_ALL}")
     
     # get consoles (many to many)
-    def consoles(self):
+    def consoles(self, console_id):
         CURSOR.execute('''
                        SELECT genres.* FROM CONSOLES
                        JOIN games ON games.consoles.id = console.id
-                       WHERE games.genre_id = ? 
-                       ''')
+                       WHERE games.genre_id = ?''', (console_id,))
         genre_consoles = CURSOR.fetchall()
 
         if genre_consoles:
+            id, name, console_id, genre_id = genre_consoles
             for console in genre_consoles:
                 id = console_id
                 print(f" ID: {id} \nName: {name}")

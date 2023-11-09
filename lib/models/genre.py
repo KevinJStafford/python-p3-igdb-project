@@ -96,3 +96,5 @@ class Genre:
                 print(f"{Fore.GREEN}ID: {id} \nName: {name}\nDescription: {description}\n{Style.RESET_ALL}")
         else: 
             print(f"{Fore.GREEN}There are no genres currently. Use the menu to add a genre.{Style.RESET_ALL}")
+    
+    

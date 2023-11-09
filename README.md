@@ -4,9 +4,9 @@
 
 Welcome to IGDB, or Internet Gaming Database!
 
-IGDB is a command-line interface (CLI) application that allows users to search for video games based on their console or genre preferences. Users can interact with menus to add, delete, find one, and find all consoles, genres, and games. 
+IGDB is a command-line interface (CLI) application that allows users to search for video games based on their console or genre preferences. Users can interact with menus to add, delete, find one, and find all consoles, genres, and games.
 
-Internet Gaming Database is a phase 3 project for Flatiron School's software engineering course. This project includes 3 model classes and 1 one-to-many relationship, each with ORM methods. The CLI validates user input and provides color-coded responses: green for success and red for error. 
+Internet Gaming Database is a phase 3 project for Flatiron School's software engineering course. This project includes three model classes, each with ORM methods, and a one-to-many relationship. SQL, specifically SQLite, is used to store and retrieve game data. The CLI will validate user input, check SQL, and provide color-coded responses: green for success and red for error.
 
 ## Installation
 
@@ -49,8 +49,8 @@ python lib/cli.py
 
 ## Acknowledgements
 This application was created by:
-* [Angelus Bootle](https://github.com/Avgelus)
-* [Ling Zhou Chen](https://github.com/lingzhouc) 
-* [Kevin Stafford](https://github.com/KevinJStafford)
+- [Angelus Bootle](https://github.com/Avgelus)
+- [Ling Zhou Chen](https://github.com/lingzhouc) 
+- [Kevin Stafford](https://github.com/KevinJStafford)
 
 

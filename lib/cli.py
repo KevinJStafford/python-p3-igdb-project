@@ -4,6 +4,7 @@ from helpers import (
 )
 from models.genre import Genre
 from models.game import Game
+from models.console import Console
 from helper_functions.figure import show_image
 
 # main menu
@@ -135,5 +136,77 @@ def game_menu():
         else:
             print("Not a valid option. Please follow the menu options.")
 
+
+# console menu
+def console_menu():
+    user_console = Console()
+    while True:
+        print('''
+                      Console Menu
+              
+        1. Add a console          4. Find by id
+        2. Delete by id         5. Find by name
+        3. Delete by name       6. Get all consoles
+        
+        Enter 0 to return to the previous menu.
+        ------------------------------------------
+        ''')
+
+        choice = input("Please select an option:")
+        if choice == "1":
+            print('You have selected "Add a console".')
+            param1 = input("Console Name: ")
+            param2 = input("Console Description: ")
+            user_console.add_genre(param1, param2)
+
+        elif choice == "2":
+            print('You have selected "Delete by id".')
+            param = input("Console ID: ")
+            user_console.delete_by_id(param)
+
+        elif choice == "3":
+            print('You have selected "Delete by name".')
+            param = input("Console Name: ")
+            user_console.delete_by_name(param)
+
+        elif choice == "4":
+            print('You have selected "Find by id".')
+            param = input("Console ID: ")
+            user_console.find_by_id(param)
+
+        elif choice == "5":
+            print('You have selected "Find by name".')
+            param = input("Console Name: ")
+            user_console.find_by_name(param)
+
+        elif choice == "6":
+            print('You have selected "Get all consoles".')
+            user_console.get_all_genres()
+
+        elif choice == "0": 
+            return
+        
+        elif choice == "quit" or "help" or "im lost":
+            exit_program()
+
+        else:
+            print("That is invalid. Please select one of the menu options.")
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     main()
+

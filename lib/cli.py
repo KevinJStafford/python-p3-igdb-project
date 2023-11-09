@@ -94,9 +94,9 @@ def game_menu():
         print('''
                       Games Menu
               
-        1. Add a game
-        2. See all games
-        3. Delete a game
+        1. Add a game                    2. See all games
+        3. Delete a game                 4. Find game genres by consoles
+        5. Find consoles by game genre
         
         Enter 0 to return to the previous menu.
         ------------------------------------------
@@ -126,6 +126,25 @@ def game_menu():
         elif choice == "3":
             print("You have chosen to delete a game, please enter the Game's ID: ")
             user_game.delete_by_id()
+
+        elif choice == "4":
+            print('''Please select a console:
+                   CONSOLES
+                PlayStation
+                Xbox
+                PC
+                  ''')
+            param1 = input("Console: ")
+            user_game.consoles(param1)
+
+        elif choice == "5":
+            print('''Please select a genre:
+                             GENRES
+                    Action-adventure   Strategy
+                    RPG                Turn-based RPG
+                    Horror/Survival    Puzzle''')
+            param1 = input("Genre: ")
+            user_game.genres(param1)
 
         elif choice == "0":
             return
@@ -192,20 +211,6 @@ def console_menu():
         else:
             print("That is invalid. Please select one of the menu options.")
             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     main()
